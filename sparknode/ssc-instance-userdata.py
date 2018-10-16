@@ -44,8 +44,8 @@ else:
     sys.exit("private-net not defined.")
 
 #print("Path at terminal when executing this file")
-#print(os.getcwd() + "\n")
-cfg_file_path =  os.getcwd()+'/cloud-cfg.txt'
+print(os.getcwd() + "\n")
+cfg_file_path =  'sparknode/cloud-cfg.txt'
 if os.path.isfile(cfg_file_path):
     userdata = open(cfg_file_path)
 else:
