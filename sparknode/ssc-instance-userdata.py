@@ -53,8 +53,8 @@ else:
 
 #print("Path at terminal when executing this file")
 print(os.getcwd() + "\n")
-#cfg_file_path =  'sparknode/cloud-cfg.txt'
-cfg_file_path =  'cloud-cfg.txt'
+cfg_file_path =  'sparknode/cloud-cfg.txt'
+#cfg_file_path =  'cloud-cfg.txt'
 if os.path.isfile(cfg_file_path):
     userdata = open(cfg_file_path)
 else:
