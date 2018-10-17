@@ -1,5 +1,5 @@
 # http://docs.openstack.org/developer/python-novaclient/ref/v2/servers.html
-import time, os, sys
+import time, os, sys, re
 import inspect
 from os import environ as env
 
@@ -21,13 +21,21 @@ image_name = "Ubuntu 16.04 LTS (Xenial Xerus) - latest"
 
 loader = loading.get_plugin_loader('password')
 
-auth = loader.load_from_options(auth_url=env['OS_AUTH_URL'],
-                                username=env['OS_USERNAME'],
-                                password=env['OS_PASSWORD'],
-                                project_name=env['OS_PROJECT_NAME'],
-                                project_domain_name=env['OS_USER_DOMAIN_NAME'],
-                                project_id=env['OS_PROJECT_ID'],
-                                user_domain_name=env['OS_USER_DOMAIN_NAME'])
+#auth = loader.load_from_options(auth_url=env['OS_AUTH_URL'],
+#                                username=env['OS_USERNAME'],
+#                                password=env['OS_PASSWORD'],
+#                                project_name=env['OS_PROJECT_NAME'],
+#                                project_domain_name=env['OS_USER_DOMAIN_NAME'],
+#                                project_id=env['OS_PROJECT_ID'],
+#                                user_domain_name=env['OS_USER_DOMAIN_NAME'])
+
+auth = loader.load_from_options(auth_url            = 'https://uppmax.cloud.snic.se:5000/v3',
+                                username            = 's10791',
+                                password            = 'nCcEcCoDp9167',
+                                project_name        = 'SNIC 2018/10-30',
+                                project_domain_name = 'snic',
+                                project_id          = '2344cddf33a1412b846290a9fb90b762',
+                                user_domain_name    = 'snic')
 
 sess = session.Session(auth=auth)
 nova = client.Client('2.1', session=sess)
@@ -45,7 +53,8 @@ else:
 
 #print("Path at terminal when executing this file")
 print(os.getcwd() + "\n")
-cfg_file_path =  'sparknode/cloud-cfg.txt'
+#cfg_file_path =  'sparknode/cloud-cfg.txt'
+cfg_file_path =  'cloud-cfg.txt'
 if os.path.isfile(cfg_file_path):
     userdata = open(cfg_file_path)
 else:
@@ -65,4 +74,17 @@ while inst_status == 'BUILD':
     instance = nova.servers.get(instance.id)
     inst_status = instance.status
 
-print "Instance: "+ instance.name +" is in " + inst_status + "state"
+
+ip_adress = None
+for network in instance.networks[private_net]:
+    if re.match('\d+\.\d+\.\d+\.\d+', network):
+        ip_adress = network
+        break
+if ip_adress == None:
+    print('No IP adress found')
+    sys.exit(1)
+    
+print "Instance: "+ instance.name +" is in " + inst_status + "state. With IP: " + str(ip_adress)
+
+f = open("/etc/hosts", "a")
+f.write(ip_adress + " " + instance.name)
