@@ -34,8 +34,8 @@ echo "ansible-node ansible_ssh_host=$ip" > hosts_file
 source ~/SNIC-openrc.sh
 
 ## Create the spark master and workers
-sudo python ssc-instance-userdata.py group2_sm
-sudo python ssc-instance-userdata.py group2_sw
+sudo python sparknode/ssc-instance-userdata.py group2_sm
+sudo python sparknode/ssc-instance-userdata.py group2_sw
 
 ## Installing Ansible 
 sudo apt-add-repository -y ppa:ansible/ansible
