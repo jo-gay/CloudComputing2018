@@ -87,7 +87,7 @@ if ip_adress == None:
 print "Instance: "+ instance.name +" is in " + inst_status + "state. With IP: " + str(ip_adress)
 
 f = open("/etc/hosts", "a")
-f.write(ip_adress + " " + instance.name)
+f.write(ip_adress + " " + instance.name + "\n")
 
 # ansible-node ansible_ssh_host=192.168.1.12
 # sparkmaster  ansible_ssh_host=192.168.1.20
