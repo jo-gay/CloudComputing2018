@@ -1,0 +1,18 @@
+#cloud-config
+
+apt_update: true
+apt_upgrade: true
+packages:
+ - python-pip
+ - python-dev
+ - build-essential
+ - cowsay
+byobu_default: system 
+
+runcmd:
+ - export LC_ALL=en_US.UTF-8
+ - echo "export PATH=$PATH:/usr/games" >> /home/ubuntu/.bashrc  
+ - source /home/ubuntu/.bashrc
+ - python cowsay-app.py &
+ - echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0WSlMZW1vbwKy0XKvK9EWR6l77JV9sItXBl2o0E1r05eJBJspnMnMp8e2jV7N4RIRsn8YHo+TKJ7wdy82tYC8unob6XcaydKiUJUGzyFPBAhtdNXfP51SKWj2TRmr75dkKfef1HRDsCgYT6ojxR/VOnT4TM1yNcQ+kwp75m6mBhih4ffzsgxjZ17imwp7zkcs+hB0MkeIzUD+tvGCo2bMg/cJjniCm6s1tb1qRyksoxGoXQQBIrK5e4dUzNcqrH3HiPpLx1tpMXxgX++nqWO6M6osN27PaTjLBhKBoc3Cfzy3O88wYWyRuW33P2nFDZc0D80VrII62IjpS6u+DhKv Generated-by-Nova" >> /home/ubuntu/.ssh/authorized_keys
+ - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsIE+05jHsiQWbL7q0lATDUzLUG9JaY2mblg1Frj06uqdTMF6d6pWXXse5rSvpR0zvRZLE/EVk+zsRQ0oOhN1I9XIQERXigRU5i/yTQPvCFuMPPPWVzl1STlcr2DgFA5DKNs3iUFibbNSTM8wX7rB2SOkNhNVLf0LL7XofiOOLqQtdW0Wn080KO90bjIg/o6FOZeShKiHOkefYeQQ+ogoDOXLFdc4bjZQx9lP8VPVN9Mw330zFrrsbFgO5NK/x70VhdZ+iBSQ5RhuJs+wel2rzIoCdmmbGd75Lfm8RW3/Pszpu88qaDlK++yLn82HQxx6FA+Zeh/7jp0jSZJwu9UL7 ubuntu@group2-am' >> ~/.ssh/authorized_keys
