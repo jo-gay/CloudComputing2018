@@ -88,3 +88,25 @@ print "Instance: "+ instance.name +" is in " + inst_status + "state. With IP: " 
 
 f = open("/etc/hosts", "a")
 f.write(ip_adress + " " + instance.name)
+
+# ansible-node ansible_ssh_host=192.168.1.12
+# sparkmaster  ansible_ssh_host=192.168.1.20
+# sparkworker1 ansible_ssh_host=192.168.1.19
+# sparkworker2 ansible_ssh_host=192.168.1.18
+
+# [configNode]
+# ansible-node ansible_connection=local ansible_user=ubuntu
+
+# [sparkmaster]
+# sparkmaster ansible_connection=ssh ansible_user=ubuntu
+
+# [sparkworker]
+# sparkworker[1:2] ansible_connection=ssh ansible_user=ubuntu
+
+
+f2 = open("/etc/ansible/hosts", "a")
+ash = "ansible_ssh_host="
+anc = "ansible_connection="
+asu = "ansible_user=ubuntu"
+
+
