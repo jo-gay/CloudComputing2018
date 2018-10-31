@@ -1,15 +1,17 @@
 #!/bin/bash 
 
-## generate ssh key
-ssh-keygen -q
+echo '##Clone git repo and move into directory'
+#git clone https://github.com/jo-gay/CloudComputing2018.git
+#cd CloudComputing2018/
 
-## inject ssh key into cloudinit file
-#echo "ssh_authorized_keys" >> spark_cloudinit_file
+echo '## generate ssh key (no passphrase, do nothing if already exists)'
+cat /dev/zero | ssh-keygen -q -N ""
+
+echo '## inject ssh key into cloudinit file'
 sshkey="$(cat ~/.ssh/id_rsa.pub)"
-echo " - sudo echo '$sshkey' >> ~/.ssh/authorized_keys" >> cloud-cfg.txt
-#cat cloud-cfg.txt >> cloud_init.txt
+echo " - echo '$sshkey' >> ~/.ssh/authorized_keys" >> sparknode/cloud-cfg.txt
 
-## Set up server ready for use
+echo '## Set up server ready for use'
 sudo echo "127.0.1.1 group2-am" >> /etc/hosts
 sudo echo "export LC_ALL='en_US.UTF-8'" >> ~/.bashrc
 export LC_ALL='en_US.UTF-8'
@@ -19,29 +21,32 @@ sudo apt install -y python-pip
 sudo apt-get update
 sudo apt-get -y upgrade
 
-## Installing Openstack 
+echo '## Installing Openstack '
 sudo apt install -y software-properties-common
-sudo add-apt-repository cloud-archive:newton
-sudo apt update -y && apt dist-upgrade -y
+sudo add-apt-repository -y cloud-archive:newton
+sudo apt update -y && sudo apt dist-upgrade -y
 ##what about the reboot?
 sudo apt install -y python-openstackclient
 
-## Write hostname to file to start creation of ansible hosts file
+echo '## Write hostname to file to start creation of ansible hosts file'
 ip="$(hostname -I)"
-echo "ansible-node ansible_ssh_host=$ip" > hosts_file
+#sudo echo "ansible-node ansible_ssh_host=$ip" > /etc/ansible/hosts
 
-## set up environment for openstack
-source ~/SNIC-openrc.sh
+#echo '## set up environment for openstack - now handled by python file'
+#source ~/SNIC-openrc.sh
 
-## Create the spark master and workers
-sudo python sparknode/ssc-instance-userdata.py group2_sm
-sudo python sparknode/ssc-instance-userdata.py group2_sw
+echo '## Create the spark master and workers'
+python sparknode/ssc-instance-userdata.py group2sm
+python sparknode/ssc-instance-userdata.py group2sw
 
-## Installing Ansible 
+echo '## Installing Ansible '
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install -y ansible
+
+echo '# Run ansible to configure the spark master and workers'
+ansible-playbook -b spark_deployment.yml
 
 ######################
 
