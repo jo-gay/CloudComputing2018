@@ -30,14 +30,14 @@ sudo apt install -y python-openstackclient
 
 echo '## Write hostname to file to start creation of ansible hosts file'
 ip="$(hostname -I)"
-echo "ansible-node ansible_ssh_host=$ip" > /etc/ansible/hosts
+sudo echo "ansible-node ansible_ssh_host=$ip" > /etc/ansible/hosts
 
 #echo '## set up environment for openstack - now handled by python file'
 #source ~/SNIC-openrc.sh
 
 echo '## Create the spark master and workers'
-python sparknode/ssc-instance-userdata.py group2sm
-python sparknode/ssc-instance-userdata.py group2sw
+sudo python sparknode/ssc-instance-userdata.py group2sm
+sudo python sparknode/ssc-instance-userdata.py group2sw
 
 echo '## Installing Ansible '
 sudo apt-add-repository -y ppa:ansible/ansible
