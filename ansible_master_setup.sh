@@ -12,7 +12,7 @@ sshkey="$(cat ~/.ssh/id_rsa.pub)"
 echo " - echo '$sshkey' >> ~/.ssh/authorized_keys" >> sparknode/cloud-cfg.txt
 
 echo '## Set up server ready for use'
-sudo echo "127.0.1.1 group2-am" >> /etc/hosts
+sudo echo "127.0.1.1 group2am" >> /etc/hosts
 sudo echo "export LC_ALL='en_US.UTF-8'" >> ~/.bashrc
 export LC_ALL='en_US.UTF-8'
 source ~/.bashrc
@@ -30,7 +30,7 @@ sudo apt install -y python-openstackclient
 
 echo '## Write hostname to file to start creation of ansible hosts file'
 ip="$(hostname -I)"
-#sudo echo "ansible-node ansible_ssh_host=$ip" > /etc/ansible/hosts
+echo "ansible-node ansible_ssh_host=$ip" > /etc/ansible/hosts
 
 #echo '## set up environment for openstack - now handled by python file'
 #source ~/SNIC-openrc.sh

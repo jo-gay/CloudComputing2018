@@ -10,6 +10,7 @@ from keystoneauth1 import session
 
 if len(sys.argv) > 1:
     instance_name = str(sys.argv[1])
+    print instance_name
 else:
     sys.exit("Need to give an argument name")
 
