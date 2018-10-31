@@ -103,10 +103,94 @@ f.write(ip_adress + " " + instance.name + "\n")
 # [sparkworker]
 # sparkworker[1:2] ansible_connection=ssh ansible_user=ubuntu
 
+f = open('/etc/ansible/hosts', 'r')
+fw = open('/etc/ansible/hosts', 'w')
 
-f2 = open("/etc/ansible/hosts", "a")
+lines = f.read().splitlines()
+
+lines = [ line for line in lines if "#" not in line ]
+
+asn = "ansible-node"
 ash = "ansible_ssh_host="
 anc = "ansible_connection="
 asu = "ansible_user=ubuntu"
+
+sm = "sparkmaster"
+sw = "sparkworker"
+
+arg = "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+
+
+worker_number = None
+new_wn = None
+last_worker_index = None
+spark_master_index = None
+
+ans_node = asn + " " + anc + "local " + asu
+
+if '[configNode]' not in lines:
+    lines.append('')
+    lines.append('[configNode]')
+    lines.append(ans_node)
+
+if "w" in instance_name:
+    for index in range(len(lines)):
+
+        # Check for either the last worker or if there is a sparkmaster index
+        if sm in lines[index] and ash in lines[index]:
+            spark_master_index = index
+        if sw in lines[index] and ash in lines[index]:
+            last_worker_index = index
+            
+            # extract the last digit from sparkworkers ( sparkworker5 -> 5 ) 
+            s = re.search(r"\d+(\d+)?", line)
+            worker_number = s.group(0)
+            
+    if worker_number is not None:
+        new_wn = str(int(worker_number) + 1)
+    else:
+        new_wn = "1"
+        
+    if last_worker_index is not None:
+        lines.insert(last_worker_index + 1, sw + new_wn + " " +ash + ip_adress)
+    elif spark_master_index is not None:
+        lines.insert(spark_master_index + 1, sw + new_wn + " " +ash + ip_adress)
+
+
+    end_line = sw + '[1:' + new_wn + '] ' + anc + "ssh" + " " + asu + " " + arg
+    if '[sparkworker]' in lines:
+        for index in range(len(lines)):
+            if sw + '[1:' in lines[index]:
+                lines[index] = end_line
+    else:
+        lines.append('')
+        lines.append('[sparkworker]')
+        lines.append(end_line)
+
+
+
+if "m" in instance_name:
+
+    insert_sm = True
+    
+    for line in lines:
+        if sm in line and ash in line:
+            insert_sm = False
+            
+    if insert_sm is True:
+        lines.insert(1, sm + " " + ash + ip_adress)
+        
+    end_line = sm + " " + anc + "ssh" + " " + asu + " " + arg
+    if '[sparkmaster]' in lines:
+        for index in range(len(lines)):
+            if sw + '[1:' in lines[index]:
+                lines[index] = end_line
+    else:
+        lines.append('')
+        lines.append('[sparkmaster]')
+        lines.append(end_line)
+
+for line in lines:
+    fw.write(line + "\n")
 
 
