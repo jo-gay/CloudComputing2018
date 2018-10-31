@@ -109,6 +109,9 @@ fw = open('/etc/ansible/hosts', 'w')
 
 lines = f.read().splitlines()
 
+
+f.close()
+
 lines = [ line for line in lines if "#" not in line ]
 
 asn = "ansible-node"
@@ -194,4 +197,4 @@ if "m" in instance_name:
 for line in lines:
     fw.write(line + "\n")
 
-
+fw.close()
