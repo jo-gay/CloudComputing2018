@@ -105,11 +105,7 @@ f.write(ip_adress + " " + instance.name + "\n")
 # sparkworker[1:2] ansible_connection=ssh ansible_user=ubuntu
 
 f = open('/etc/ansible/hosts', 'r')
-fw = open('/etc/ansible/hosts', 'w')
-
 lines = f.read().splitlines()
-
-
 f.close()
 
 lines = [ line for line in lines if "#" not in line ]
@@ -194,6 +190,9 @@ if "m" in instance_name:
         lines.append('[sparkmaster]')
         lines.append(end_line)
 
+        
+fw = open('/etc/ansible/hosts', 'w')
+        
 for line in lines:
     fw.write(line + "\n")
 

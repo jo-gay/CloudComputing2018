@@ -12,7 +12,7 @@ sshkey="$(cat ~/.ssh/id_rsa.pub)"
 echo " - echo '$sshkey' >> ~/.ssh/authorized_keys" >> sparknode/cloud-cfg.txt
 
 echo '## Set up server ready for use'
-sudo echo "127.0.1.1 group2am" >> /etc/hosts
+sudo echo "127.0.1.1 group2amnew" >> /etc/hosts
 sudo echo "export LC_ALL='en_US.UTF-8'" >> ~/.bashrc
 export LC_ALL='en_US.UTF-8'
 source ~/.bashrc
