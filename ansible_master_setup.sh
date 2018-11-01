@@ -8,8 +8,8 @@ echo '## generate ssh key (no passphrase, do nothing if already exists)'
 cat /dev/zero | ssh-keygen -q -N ""
 
 echo '## inject ssh key into cloudinit file'
-sshkey="$(cat ~/.ssh/id_rsa.pub)"
-echo " - echo '$sshkey' >> /home/ubuntu/.ssh/authorized_keys" >> sparknode/cloud-cfg.txt
+sshkey="$(cat /root/.ssh/id_rsa.pub)"
+echo " - echo '$sshkey' >> /root/.ssh/authorized_keys" >> sparknode/cloud-cfg.txt
 
 echo '## Set up server ready for use'
 sudo echo "127.0.1.1 group2amnew" >> /etc/hosts
