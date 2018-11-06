@@ -11,6 +11,11 @@
       	<p><input type = "submit" value = "submit" /></p>
       </form>
 
+      <form action = "{{ url_for('delete_worker') }}" method = "get">
+      	<p>delete worker</p>
+      	<p><input type = "submit" value = "submit" /></p>
+      </form>
+
       <form action = "{{ url_for('get_token') }}"  method = "get">
 	<p>Get Token</p>
 	<p><input type = "submit" value = "submit" /></p>
