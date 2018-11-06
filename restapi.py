@@ -22,7 +22,7 @@ def create_sparkworker():
 
 @app.route('/token', methods=['GET'])
 def get_token():
-        f = open('/home/ubuntu/CloudComputing2018/jupyter_token', 'r')
+        f = open('jupyter_token', 'r')
         lines = f.readlines()
         f.close()
         return lines[0]
