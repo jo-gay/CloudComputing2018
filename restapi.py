@@ -20,7 +20,7 @@ def create_sparkworker():
 		worker_count += 1
 	return render_template('index.html')
 
-@app.route('/token', methods=['GET'])
+@app.route('/token')
 def get_token():
         f = open('jupyter_token', 'r')
         lines = f.readlines()
