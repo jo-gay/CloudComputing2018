@@ -65,7 +65,7 @@ if os.path.isfile(cfg_file_path):
 else:
     sys.exit("cloud-cfg.txt is not in current working directory")
 
-secgroups = ['default']
+secgroups = ['default', 'group2_security']
 
 print "Creating instance ... "
 instance = nova.servers.create(name=instance_name, image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
