@@ -7,7 +7,9 @@ app = Flask(__name__, static_url_path='')
 @app.route('/createsparkmaster', methods=['POST'])
 def create_sparkmaster():
 	subprocess.call(["python", "sparknode/ssc-instance-userdata.py", "group2_SM"])
-	return "yeah"
+	return render_template('index.html')
+
+
 @app.route('/createsparkworkers', methods=['POST'])
 def create_sparkworker():
 	amount = int(request.form['amt'])
@@ -16,7 +18,16 @@ def create_sparkworker():
 		worker_name = "group2_SW" + str(worker_count)
 		subprocess.call(["python", "sparknode/ssc-instance-userdata.py", worker_name])
 		worker_count += 1
-	return "yeah"
+	return render_template('index.html')
+
+@app.route('/token', methods=['GET'])
+def get_token():
+        f = open('jupyter_token', 'r')
+        lines = f.readlines()
+        f.close()
+
+        return lines
+
 
 @app.route('/')
 def root():
