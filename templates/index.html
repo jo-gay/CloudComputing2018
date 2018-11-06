@@ -1,12 +1,12 @@
 <html>
    <body>
       
-      <form action = "/createsparkworkers" method = "post">
+      <form action = "{{ url_for('create_sparkworker') }}" method = "post">
          <p>Create workers:</p>
          <p><input type = "text" name = "amt" /></p>
          <p><input type = "submit" value = "submit" /></p>
       </form>
-      <form action = "/createsparkmaster" method = "post">
+      <form action = "{{ url_for('create_sparkmaster') }}" method = "post">
       	<p>Create master:</p>
       	<p><input type = "submit" value = "submit" /></p>
       </form>
