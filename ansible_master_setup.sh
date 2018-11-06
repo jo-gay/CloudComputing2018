@@ -12,7 +12,8 @@ sshkey="$(cat /root/.ssh/id_rsa.pub)"
 echo " - echo '$sshkey' >> /home/ubuntu/.ssh/authorized_keys" >> sparknode/cloud-cfg.txt
 
 echo '## Set up server ready for use'
-sudo echo "127.0.1.1 group2amnew" >> /etc/hosts
+hname="$(hostname)"
+sudo echo "127.0.1.1 $hname" >> /etc/hosts
 sudo echo "export LC_ALL='en_US.UTF-8'" >> ~/.bashrc
 export LC_ALL='en_US.UTF-8'
 source ~/.bashrc
@@ -46,7 +47,9 @@ sudo apt-get upgrade -y
 sudo apt-get install -y ansible
 
 echo '# Run ansible to configure the spark master and workers'
-ansible-playbook -b spark_deployment.yml
+sleep 10
+ansible-playbook -b spark_deployment.yml | tee ansible_out.txt
 
+cat ansible_out.txt | grep token | grep , | awk '{print $3}' | cut -f2 -d"\"" | cut -f1 -d"\\" > jupyter_token
 ######################
 

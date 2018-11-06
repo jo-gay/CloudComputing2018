@@ -1,14 +1,8 @@
 #cloud-config
 
-apt_update: true
-apt_upgrade: true
-packages:
- - python-pip
- - python-dev
- - build-essential
 byobu_default: system 
 
 runcmd:
- - export LC_ALL=en_US.UTF-8
  - source /home/ubuntu/.bashrc
- - echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0WSlMZW1vbwKy0XKvK9EWR6l77JV9sItXBl2o0E1r05eJBJspnMnMp8e2jV7N4RIRsn8YHo+TKJ7wdy82tYC8unob6XcaydKiUJUGzyFPBAhtdNXfP51SKWj2TRmr75dkKfef1HRDsCgYT6ojxR/VOnT4TM1yNcQ+kwp75m6mBhih4ffzsgxjZ17imwp7zkcs+hB0MkeIzUD+tvGCo2bMg/cJjniCm6s1tb1qRyksoxGoXQQBIrK5e4dUzNcqrH3HiPpLx1tpMXxgX++nqWO6M6osN27PaTjLBhKBoc3Cfzy3O88wYWyRuW33P2nFDZc0D80VrII62IjpS6u+DhKv Generated-by-Nova" >> /home/ubuntu/.ssh/authorized_keys
+ - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/Z6WvuzJtbLz9BADB8Mv5GEiHDDU7E6NEhFgc8zAcFH7BuQzqpF+/2LV3QiEwid6DjIbYXTjHQgrsqFULLNoGw9g7DoJXg7XGBmt7zCsT5LRJ4YEaIpFK2ajV7DWqLH+1NzmDeaOEiO2FKg26+IM6j8DXCVG3yWm0UkeEG0BvSp80IolV71Z6sk8BnyFcyCpapnc6g6+rDbb+a3/tFVT1ahFklOs2yJF27oumzVLJDd+xTVItrL+tYax1ZRgzVGuzdU/lBkOBlhR3IuBS1jjYd5KBsbeo3oiSb9wIXttbgm41gDStuQEjXbiYR6A6gjI0JW9qO6xr9LG/fBnle2GD root@group2amnew' >> /home/ubuntu/.ssh/authorized_keys
+ - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/Z6WvuzJtbLz9BADB8Mv5GEiHDDU7E6NEhFgc8zAcFH7BuQzqpF+/2LV3QiEwid6DjIbYXTjHQgrsqFULLNoGw9g7DoJXg7XGBmt7zCsT5LRJ4YEaIpFK2ajV7DWqLH+1NzmDeaOEiO2FKg26+IM6j8DXCVG3yWm0UkeEG0BvSp80IolV71Z6sk8BnyFcyCpapnc6g6+rDbb+a3/tFVT1ahFklOs2yJF27oumzVLJDd+xTVItrL+tYax1ZRgzVGuzdU/lBkOBlhR3IuBS1jjYd5KBsbeo3oiSb9wIXttbgm41gDStuQEjXbiYR6A6gjI0JW9qO6xr9LG/fBnle2GD root@group2amnew' >> /home/ubuntu/.ssh/authorized_keys
