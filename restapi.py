@@ -22,6 +22,16 @@ def create_sparkworker():
 		worker_count += 1
 	return render_template('index.html')
 
+
+@app.route('/deleteworker')
+def delete_worker():
+        global worker_count
+        worker_name = "group2sw" + str(worker_count)
+        subprocess.call(["sudo", "python", "sparknode/ssc-delete.py", worker_name])
+        worker_count -= 1
+        return render_template('index.html')
+        
+
 @app.route('/token', methods=['GET'])
 def get_token():
         f = open('jupyter_token', 'r')
