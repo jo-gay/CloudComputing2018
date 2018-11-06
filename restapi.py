@@ -25,7 +25,7 @@ def get_token():
         f = open('/home/ubuntu/CloudComputing2018/jupyter_token', 'r')
         lines = f.readlines()
         f.close()
-        return lines
+        return lines[0]
 
 
 @app.route('/')
