@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path='')
 
 @app.route('/createsparkmaster', methods=['POST'])
 def create_sparkmaster():
-	subprocess.call(["python", "sparknode/ssc-instance-userdata.py", "group2_SM"])
+	subprocess.call(["python", "sparknode/ssc-instance-userdata.py", "group2sm"])
 	return render_template('index.html')
 
 
@@ -15,7 +15,7 @@ def create_sparkworker():
 	amount = int(request.form['amt'])
 	global worker_count
 	for _ in range(0, amount): 
-		worker_name = "group2_SW" + str(worker_count)
+		worker_name = "group2sw" + str(worker_count)
 		subprocess.call(["python", "sparknode/ssc-instance-userdata.py", worker_name])
                 subprocess.call(["sleep", "20"])
                 subprocess.call(["ansible-playbook", "-b", "spark_addworker.yml"])
