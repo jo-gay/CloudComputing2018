@@ -18,7 +18,11 @@ flavor = "ACCHT18.normal"
 private_net = "SNIC 2018/10-30 Internal IPv4 Network"
 floating_ip_pool_name = None
 floating_ip = None
-image_name = "Ubuntu 16.04 LTS (Xenial Xerus) - latest"
+
+if "m" in instance_name:
+    image_name = "group2_sm_important"
+if "w" in instance_name:
+    image_name = "group2_sw_important"
 
 loader = loading.get_plugin_loader('password')
 
