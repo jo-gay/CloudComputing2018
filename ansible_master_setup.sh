@@ -19,6 +19,7 @@ export LC_ALL='en_US.UTF-8'
 source ~/.bashrc
 sudo apt-get update
 sudo apt install -y python-pip
+sudo pip install flask
 sudo apt-get update
 sudo apt-get -y upgrade
 
@@ -51,5 +52,10 @@ sleep 10
 ansible-playbook -b spark_deployment.yml | tee ansible_out.txt
 
 cat ansible_out.txt | grep token | grep , | awk '{print $3}' | cut -f2 -d"\"" | cut -f1 -d"\\" > jupyter_token
+
+echo 'Run the API'
+screen python restapi.py &
+
+
 ######################
 
