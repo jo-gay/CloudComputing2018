@@ -16,9 +16,9 @@ def create_sparkworker():
 	global worker_count
 	for _ in range(0, amount): 
 		worker_name = "group2sw" + str(worker_count)
-		subprocess.call(["python", "sparknode/ssc-instance-userdata.py", worker_name])
+		subprocess.call(["sudo", "python", "sparknode/ssc-instance-userdata.py", worker_name])
                 subprocess.call(["sleep", "20"])
-                subprocess.call(["ansible-playbook", "-b", "spark_addworker.yml"])
+                subprocess.call(["sudo", "ansible-playbook", "-b", "spark_addworker.yml"])
 		worker_count += 1
 	return render_template('index.html')
 
