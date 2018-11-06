@@ -26,9 +26,9 @@ def create_sparkworker():
 @app.route('/deleteworker')
 def delete_worker():
         global worker_count
-        worker_name = "group2sw" + str(worker_count)
-        subprocess.call(["sudo", "python", "sparknode/ssc-delete.py", worker_name])
         worker_count -= 1
+	worker_name = "group2sw" + str(worker_count)
+        subprocess.call(["sudo", "python", "sparknode/ssc-delete.py", worker_name])
         return render_template('index.html')
         
 
