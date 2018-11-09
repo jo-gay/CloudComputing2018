@@ -6,7 +6,9 @@ app = Flask(__name__, static_url_path='')
 
 @app.route('/createsparkmaster', methods=['POST'])
 def create_sparkmaster():
-	subprocess.call(["python", "sparknode/ssc-instance-userdata.py", "group2sm"])
+	subprocess.call(["sudo", "python", "sparknode/ssc-instance-userdata.py", "group2sm"])
+        subprocess.call(["sleep", "20"])
+        subprocess.call(["sudo", "ansible-playbook", "-s", "spark_deployment.yml"])
 	return render_template('index.html')
 
 
@@ -18,7 +20,7 @@ def create_sparkworker():
 		worker_name = "group2sw" + str(worker_count)
 		subprocess.call(["sudo", "python", "sparknode/ssc-instance-userdata.py", worker_name])
                 subprocess.call(["sleep", "20"])
-                subprocess.call(["sudo", "ansible-playbook", "-b", "spark_addworker.yml"])
+                subprocess.call(["sudo", "ansible-playbook", "-s", "spark_addworker.yml"])
 		worker_count += 1
 	return render_template('index.html')
 
@@ -26,9 +28,9 @@ def create_sparkworker():
 @app.route('/deleteworker')
 def delete_worker():
         global worker_count
+        worker_count -= 1
         worker_name = "group2sw" + str(worker_count)
         subprocess.call(["sudo", "python", "sparknode/ssc-delete.py", worker_name])
-        worker_count -= 1
         return render_template('index.html')
         
 
