@@ -1,8 +1,8 @@
 #!/bin/bash 
 
 echo '##Clone git repo and move into directory'
-#git clone https://github.com/jo-gay/CloudComputing2018.git
-#cd CloudComputing2018/
+git clone https://github.com/jo-gay/CloudComputing2018.git
+cd CloudComputing2018/
 
 echo '## generate ssh key (no passphrase, do nothing if already exists)'
 cat /dev/zero | ssh-keygen -q -N ""
@@ -27,15 +27,11 @@ echo '## Installing Openstack '
 sudo apt install -y software-properties-common
 sudo add-apt-repository -y cloud-archive:newton
 sudo apt update -y && sudo apt dist-upgrade -y
-##what about the reboot?
 sudo apt install -y python-openstackclient
 
 echo '## Write hostname to file to start creation of ansible hosts file'
 ip="$(hostname -I)"
 sudo echo "ansible-node ansible_ssh_host=$ip" > /etc/ansible/hosts
-
-#echo '## set up environment for openstack - now handled by python file'
-#source ~/SNIC-openrc.sh
 
 echo '## Create the spark master and workers'
 sudo python sparknode/ssc-instance-userdata.py group2sm
