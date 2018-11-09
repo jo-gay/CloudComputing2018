@@ -147,7 +147,7 @@ if "w" in instance_name:
             last_worker_index = index
             
             # extract the last digit from sparkworkers ( sparkworker5 -> 5 ) 
-            s = re.search(r"\d+(\d+)?", line)
+            s = re.search(r"\d+(\d+)?", lines[index])
             worker_number = s.group(0)
             
     if worker_number is not None:
