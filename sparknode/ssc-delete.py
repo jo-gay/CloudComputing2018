@@ -29,13 +29,13 @@ loader = loading.get_plugin_loader('password')
 #                                project_id=env['OS_PROJECT_ID'],
 #                                user_domain_name=env['OS_USER_DOMAIN_NAME'])
 
-auth = loader.load_from_options(auth_url            = 'https://uppmax.cloud.snic.se:5000/v3',
-                                username            = 's10791',
-                                password            = 'nCcEcCoDp9167',
-                                project_name        = 'SNIC 2018/10-30',
-                                project_domain_name = 'snic',
-                                project_id          = '2344cddf33a1412b846290a9fb90b762',
-                                user_domain_name    = 'snic')
+auth = loader.load_from_options(auth_url            = 'ENTER_CLOUD_AUTH_URL',
+                                username            = 'ENTER_USER_NAME',
+                                password            = 'ENTER_PASSWORD',
+                                project_name        = 'ENTER_PROJECT_NAME',
+                                project_domain_name = 'ENTER_PROJECT_DOMAIN_NAME',
+                                project_id          = 'ENTER_PROJECT_ID',
+                                user_domain_name    = 'ENTER_USER_DOMAIN_NAME')
 
 sess = session.Session(auth=auth)
 nova = client.Client('2.1', session=sess)
